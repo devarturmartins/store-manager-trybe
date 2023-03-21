@@ -13,7 +13,6 @@ const findById = async (req, res) => {
   return res.status(200).json(product.message);
 };
 
-
 module.exports = {
   findProducts,
   findById,
