@@ -56,7 +56,7 @@ describe('Testes do controller de produtos', function () {
 
     sinon
       .stub(productsService, 'findById')
-      .resolves({ error: { message: 'Product not found' } });
+      .resolves({ error: 'Product not found' });
     
     await productsController.findById(req, res);
 
