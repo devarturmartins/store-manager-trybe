@@ -5,10 +5,10 @@ const { productsModel } = require('../../../src/models');
 const connection = require('../../../src/models/connection');
 const productsMock = require('./products.model.mock');
 
-describe('Testes do model de produtos', () => {
+describe('Testes do model de produtos', function () {
   it('Recuperando lista de produtos', async function () {
     //aranjo
-    sinon.stub(connection, 'execute').resolves(productsMock);
+    sinon.stub(connection, 'execute').resolves([productsMock]);
     //ação
     const result = await productsModel.findAll();
 
@@ -17,7 +17,7 @@ describe('Testes do model de produtos', () => {
 
   it('Recuperando produto por id', async function () {
     //aranjo
-    sinon.stub(connection, 'execute').resolves(productsMock[0]);
+    sinon.stub(connection, 'execute').resolves([[productsMock[0]]]);
     //ação
     const result = await productsModel.findById(1);
     //assert

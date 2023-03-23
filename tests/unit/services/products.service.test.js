@@ -9,12 +9,12 @@ const productsMock = require('../models/products.model.mock');
 describe('Testes do service de produtos', () => {
   it('Recuperando lista de produtos', async function () {
     //aranjo
-    sinon.stub(productsModel, 'findAll').resolves(productsMock);
+    sinon.stub(productsModel, 'findAll').resolves([productsMock]);
     //ação
     const result = await productsService.findProducts();
     //assert
-    expect(result.type).to.be.deep.equal(null);
-    expect(result.message).to.be.deep.equal(productsMock);
+    // expect(result.type).to.be.deep.equal(null);
+    expect(result).to.be.deep.equal([productsMock]);
   });
 
   it('Recuperando produto por id', async function () {
@@ -33,17 +33,17 @@ describe('Testes do service de produtos', () => {
     //ação
     const result = await productsService.findById(6);
     //assert
-    expect(result.message).to.be.deep.equal('Product not found');
+    expect(result.error.message).to.be.deep.equal('Product not found');
   });
 
-  // it('busca produto por id invalido', async function () {
-  //   //aranjo
-  //   sinon.stub(productsModel, 'findById').resolves(null);
-  //   //ação
-  //   const result = await productsService.findById('a');
-  //   //assert
-  //   expect(result.message).to.be.deep.equal('Wrong id format');
-  // });
+  it('busca produto por id invalido', async function () {
+    //aranjo
+    sinon.stub(productsModel, 'findById').resolves(null);
+    //ação
+    const result = await productsService.findById('a');
+    //assert
+    expect(result.error.message).to.be.deep.equal('Product not found');
+  });
 
   afterEach(() => {
     sinon.restore();

@@ -29,39 +29,43 @@ describe('Testes do controller de produtos', function () {
 
   });
 
-  // it('Deve responder com 200 e os dados de um produto', async function () {
-  //   const res = {};
-  //   const req = { params: { id: 1 } };
+  it('Deve responder com 200 e os dados de um produto', async function () {
+    const res = {};
+    const req = { params: { id: 1 } };
 
-  //   res.status = sinon.stub().returns(res);
-  //   res.json = sinon.stub().returns();
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
 
-  //   sinon
-  //     .stub(productsService, 'findById')
-  //     .resolves(productsMock);
+    sinon
+      .stub(productsService, 'findById')
+      .resolves({ message : { id: 1, name: 'Martelo de Thor' }});
     
-  //   await productsController.findById(req, res);
+    await productsController.findById(req, res);
 
-  //   expect(res.status).to.have.been.calledWith(200);
-  //   expect(res.json).to.have.been.calledWith(productsMock[0]);
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith({ id: 1, name: 'Martelo de Thor' });
   
-  // });
+  });
 
-  // it('Deve responder com 404 quando o produto não for encontrado', async function () {
-  //   const res = {};
-  //   const req = { params: { id: 50 } };
+  it('Deve responder com 404 quando o produto não for encontrado', async function () {
+    const res = {};
+    const req = { params: { id: 50 } };
 
-  //   res.status = sinon.stub().returns(res);
-  //   res.json = sinon.stub().returns();
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
 
-  //   sinon
-  //     .stub(productsService, 'findById')
-  //     .resolves({ type: 'error', message: 'Product not found' });
+    sinon
+      .stub(productsService, 'findById')
+      .resolves({ error: { message: 'Product not found' } });
     
-  //   await productsController.findById(req, res);
+    await productsController.findById(req, res);
 
-  //   expect(res.status).to.have.been.calledWith(404);
-  //   expect(res.json).to.have.been.calledWith('Product not found');
+    expect(res.status).to.have.been.calledWith(404);
+    expect(res.json).to.have.been.calledWith('Product not found');
 
-  // });
+  });
+
+  afterEach(() => {
+    sinon.restore();
+  });
 });
