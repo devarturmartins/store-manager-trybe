@@ -24,7 +24,6 @@ const createProduct = async (name) => {
   return { type: null, message: product };
 };
 
-
 module.exports = {
   findProducts,
   findById,

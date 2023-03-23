@@ -15,9 +15,6 @@ module.exports = {
   nameSchemaLength,
   quantitySchema,
 };
-
-
-
 // .error((errors) => {
 //   errors.forEach((err) => {
 //     switch (err.code) {

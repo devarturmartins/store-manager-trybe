@@ -16,8 +16,8 @@ const findById = async (req, res) => {
 const createProduct = async (req, res) => {
   const { name } = req.body;
   const product = await productsService.createProduct(name);
-  if (product.type === 'length') return res.status(422).json({message: product.message});
-  if (product.type === 'inputvazio') return res.status(400).json({message: product.message});
+  if (product.type === 'length') return res.status(422).json({ message: product.message });
+  if (product.type === 'inputvazio') return res.status(400).json({ message: product.message });
   return res.status(201).json(product.message);
 };
 
