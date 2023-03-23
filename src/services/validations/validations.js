@@ -1,4 +1,4 @@
-const { idSchema } = require('./schema');
+const { idSchema, nameSchema } = require('./schema');
 
 const validateId = (id) => {
   const { error } = idSchema.validate(id);
@@ -6,11 +6,11 @@ const validateId = (id) => {
   return { type: null, message: 'gg, padrinho' };
 };
 
-// const validateName = (name) => {
-//   const { error } = nameSchema.validate(name);
-//   if (error) return { error: { code: 'invalid_data', message: error.message } };
-//   return { type: null, message: 'gg, padrinho' };
-// };
+const validateName = (name) => {
+  const { error } = nameSchema.validate(name);
+  if (error) return { error: { code: 'invalid_data', message: error.message } };
+  return { type: null, message: 'gg, padrinho' };
+};
 
 // const validateQuantity = (quantity) => {
 //   const { error } = quantitySchema.validate(quantity);
@@ -20,4 +20,5 @@ const validateId = (id) => {
 
 module.exports = {
   validateId,
+  validateName,
 };

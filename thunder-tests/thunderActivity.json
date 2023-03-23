@@ -26,5 +26,24 @@
     "headers": [],
     "params": [],
     "tests": []
+  },
+  {
+    "_id": "97fb3fc4-3db9-4f79-80cc-e91cf32ffc78",
+    "colId": "history",
+    "containerId": "",
+    "name": "localhost:3001/",
+    "url": "localhost:3001/products",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2023-03-23T18:50:47.306Z",
+    "modified": "2023-03-23T18:51:04.897Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"name\": \"Artur\"\n}",
+      "form": []
+    },
+    "tests": []
   }
 ]
