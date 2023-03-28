@@ -1,9 +1,10 @@
-const { idSchema, nameSchema, nameSchemaLength } = require('./schema');
+const Joi = require('joi');
+const { idSchema, nameSchema, nameSchemaLength, saleSchema } = require('./schema');
 
 const validateId = (id) => {
   const { error } = idSchema.validate(id);
-  if (error) return { error: { code: 'invalid_data', message: error.message } };
-  return { type: null, message: 'gg, padrinho' };
+  if (error) return { code: 'invalid_data', type: 'idInvalido', message: error.message };
+  return { type: null, message: '' };
 };
 
 const validateName = (name) => {
@@ -30,14 +31,16 @@ const validateLengthName = (name) => {
   return { type: null, message: '' };
 };
 
-// const validateQuantity = (quantity) => {
-//   const { error } = quantitySchema.validate(quantity);
-//   if (error) return { error: { code: 'invalid_data', message: error.message } };
-//   return { type: null, message: 'gg, padrinho' };
-// };
+const validateSale = (sale) => {
+  const saleArraySchema = Joi.array().items(saleSchema);
+  const { error } = saleArraySchema.validate(sale);
+  if (error) return { type: 'a', error };
+  return { type: null, message: '' };
+};
 
 module.exports = {
   validateId,
   validateName,
   validateLengthName,
+  validateSale,
 };
