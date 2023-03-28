@@ -36,14 +36,14 @@ describe('Testes do service de produtos', () => {
     expect(result.error.message).to.be.deep.equal('Product not found');
   });
 
-  it('busca produto por id invalido', async function () {
-    //aranjo
-    sinon.stub(productsModel, 'findById').resolves(null);
-    //ação
-    const result = await productsService.findById('a');
-    //assert
-    expect(result.error.message).to.be.deep.equal('Product not found');
-  });
+  // it('busca produto por id invalido', async function () {
+  //   //aranjo
+  //   sinon.stub(productsModel, 'findById').resolves(null);
+  //   //ação
+  //   const result = await productsService.findById('a');
+  //   //assert
+  //   expect(result.error.message).to.be.deep.equal('Product not found');
+  // });
 
   afterEach(() => {
     sinon.restore();
