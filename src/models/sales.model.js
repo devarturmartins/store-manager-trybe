@@ -30,9 +30,40 @@ async function findAll() {
   return result;
 }
 
+async function findSales() {
+  const [result] = await connection
+    .execute(
+      `SELECT s.id AS saleId,
+      s.date AS date,
+      p.product_id AS productId,
+      p.quantity AS quantity
+      FROM
+      StoreManager.sales AS s
+      INNER JOIN StoreManager.sales_products AS p ON s.id = p.sale_id`,
+    );
+  return result;
+}
+
+async function salesById(id) {
+  const [result] = await connection
+    .execute(
+      `SELECT
+      s.date AS date,
+      p.product_id AS productId,
+      p.quantity AS quantity
+      FROM
+      StoreManager.sales AS s
+      INNER JOIN StoreManager.sales_products AS p ON s.id = p.sale_id
+      WHERE s.id =?;`, [id],
+    );
+  return result;
+}
+
 module.exports = {
   createSale,
   salesProduct,
   findById,
   findAll,
+  findSales,
+  salesById,
 };

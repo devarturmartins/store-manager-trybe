@@ -21,8 +21,19 @@ const createProduct = async (req, res) => {
   return res.status(201).json(product.message);
 };
 
+const updateProduct = async (req, res) => {
+  const { id } = req.params;
+  const { name } = req.body;
+  const result = await productsService.updateProduct(id, name);
+  if (result.type === 'length') return res.status(422).json({ message: result.message });
+  if (result.type === 'inputvazio') return res.status(400).json({ message: result.message });
+  if (result.type === 'notFound') return res.status(404).json({ message: result.message });
+  return res.status(200).json(result.message);
+};
+
 module.exports = {
   findProducts,
   findById,
   createProduct,
+  updateProduct,
 };
