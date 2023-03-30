@@ -24,6 +24,16 @@ describe('Testes do model de produtos', function () {
     expect(result).to.be.deep.equal(productsMock[0]);
   });
 
+  it('Atualizando produto por id', async function () {
+    //aranjo
+    sinon.stub(connection, 'execute').resolves(productsMock);
+    //ação
+    const result = await productsModel.updateProduct(1, 'Produto 1');
+    console.log(result);
+    //assert
+    expect(result).to.be.deep.equal({ id: 1, name: 'Produto 1' });
+  });
+
   afterEach(() => {
     sinon.restore();
   });
