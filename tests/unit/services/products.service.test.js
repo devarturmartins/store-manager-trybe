@@ -36,14 +36,26 @@ describe('Testes do service de produtos', () => {
     expect(result.error.message).to.be.deep.equal('Product not found');
   });
 
-  // it('busca produto por id invalido', async function () {
-  //   //aranjo
-  //   sinon.stub(productsModel, 'findById').resolves(null);
-  //   //ação
-  //   const result = await productsService.findById('a');
-  //   //assert
-  //   expect(result.error.message).to.be.deep.equal('Product not found');
-  // });
+  it('Atualizando produto por id', async function () {
+    const results = [{ id: 1, name: 'Produto 1' }];
+    sinon.stub(productsModel, 'updateProduct').resolves([results]);
+    const result = await productsService.updateProduct(1, 'Produto 1');
+    expect(result.type).to.be.deep.equal(null);
+    expect(result.message).to.be.deep.equal([results]);
+  });
+
+  it('Atualizando produto por id inexistente', async function () {
+    sinon.stub(productsModel, 'findById').resolves(undefined);
+    const result = await productsService.updateProduct(6, 'Produto 6');
+    expect(result.type).to.be.deep.equal('notFound');
+    expect(result.message).to.be.deep.equal('Product not found');
+  });
+
+  it('Deletando produto por id', async function () {
+    sinon.stub(productsModel, 'deleteProduct').resolves({ affectedRows: 1 });
+    const result = await productsService.deleteProduct(1);
+    expect(result.affectedRows).to.be.deep.equal(1);
+  });
 
   afterEach(() => {
     sinon.restore();

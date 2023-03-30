@@ -25,13 +25,23 @@ describe('Testes do model de produtos', function () {
   });
 
   it('Atualizando produto por id', async function () {
+    const results = [{ id: 1, name: 'Produto 1' }];
     //aranjo
-    sinon.stub(connection, 'execute').resolves(productsMock);
+    sinon.stub(connection, 'execute').resolves([results]);
     //ação
     const result = await productsModel.updateProduct(1, 'Produto 1');
-    console.log(result);
     //assert
-    expect(result).to.be.deep.equal({ id: 1, name: 'Produto 1' });
+    expect([result]).to.be.deep.equal(results);
+  });
+
+  it('Deletando produto por id', async function () {
+    const results = { id: 1, name: 'Produto 1' };
+    //aranjo
+    sinon.stub(connection, 'execute').resolves([results]);
+    //ação
+    const result = await productsModel.deleteProduct(1);
+    //assert
+    expect(result).to.be.deep.equal(results);
   });
 
   afterEach(() => {
